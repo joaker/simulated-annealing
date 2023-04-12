@@ -1,5 +1,5 @@
 {
-  "name": "simulated-annealing",
+  "name": "@joaker/simulated-annealing",
   "version": "1.0.0",
   "description": "use the simulated annealing heuristic to solve np-complete problems in polynomial time",
   "main": "index.js",
