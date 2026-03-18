@@ -1,6 +1,6 @@
-# simulated-annealing
+# @joaker/simulated-annealing
 
-[![npm version](https://img.shields.io/npm/v/simulated-annealing.svg)](https://www.npmjs.com/package/simulated-annealing)
+[![npm version](https://img.shields.io/npm/v/@joaker/simulated-annealing.svg)](https://www.npmjs.com/package/@joaker/simulated-annealing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![CI](https://github.com/your-org/simulated-annealing/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/simulated-annealing/actions/workflows/ci.yml)
 
@@ -11,7 +11,7 @@ Simulated annealing is a probabilistic optimization technique inspired by the an
 ## Install
 
 ```
-npm install simulated-annealing
+npm install @joaker/simulated-annealing
 ```
 
 Works in Node.js >=16. Ships both CommonJS (`require`) and ESM (`import`) builds with full TypeScript declaration files.
@@ -21,8 +21,8 @@ Works in Node.js >=16. Ships both CommonJS (`require`) and ESM (`import`) builds
 ## Quick start
 
 ```typescript
-import { anneal, geometricCooling } from 'simulated-annealing';
-import type { NeighborFn } from 'simulated-annealing';
+import { anneal, geometricCooling } from '@joaker/simulated-annealing';
+import type { NeighborFn } from '@joaker/simulated-annealing';
 
 // Minimize a number toward zero
 const neighbor: NeighborFn<number> = (state) => {
@@ -55,7 +55,7 @@ The library exposes three execution modes. Choose based on whether you need bloc
 Runs the entire search to completion and returns a final snapshot. Best for scripts, CLIs, and server-side batch jobs where blocking is acceptable.
 
 ```typescript
-import { anneal, linearCooling } from 'simulated-annealing';
+import { anneal, linearCooling } from '@joaker/simulated-annealing';
 
 const result = anneal(initialState, initialEnergy, {
   initialTemperature: 1000,
@@ -72,7 +72,7 @@ console.log(`Best energy: ${result.bestEnergy}`);
 Returns a `Generator` that yields one `AnnealSnapshot` per step. Gives you full control: inspect intermediate state, break early, or pipe into any iterable consumer.
 
 ```typescript
-import { annealIterator, geometricCooling } from 'simulated-annealing';
+import { annealIterator, geometricCooling } from '@joaker/simulated-annealing';
 
 const iter = annealIterator(initialState, initialEnergy, {
   initialTemperature: 1000,
@@ -93,7 +93,7 @@ for (const snap of iter) {
 Runs the search in batches separated by `setTimeout(fn, 0)`, yielding control to the event loop between batches. Ideal for browser UIs or Node servers where you don't want to block the main thread. The `batchSize` parameter controls the temperature range processed per batch tick.
 
 ```typescript
-import { annealAsync, geometricCooling } from 'simulated-annealing';
+import { annealAsync, geometricCooling } from '@joaker/simulated-annealing';
 
 const result = await annealAsync(
   initialState,
@@ -130,7 +130,7 @@ T(n+1) = T(n) - rate
 Reduces temperature by a fixed amount each step. Simple and predictable. The search terminates when `T <= 0`.
 
 ```typescript
-import { linearCooling } from 'simulated-annealing';
+import { linearCooling } from '@joaker/simulated-annealing';
 
 const schedule = linearCooling(0.5); // subtract 0.5 each step
 ```
@@ -146,7 +146,7 @@ T(n+1) = T(n) * alpha
 Multiplies temperature by a factor between 0 and 1 each step. Temperature decays exponentially. This is the most widely used schedule in practice.
 
 ```typescript
-import { geometricCooling } from 'simulated-annealing';
+import { geometricCooling } from '@joaker/simulated-annealing';
 
 const schedule = geometricCooling(0.995); // slow cooling, higher quality
 const schedule2 = geometricCooling(0.9);  // fast cooling, fewer steps
@@ -163,7 +163,7 @@ T(n) = c / ln(1 + step)
 The theoretically optimal schedule — guaranteed to find the global optimum given sufficient time under certain conditions. In practice it cools so slowly that it is rarely used directly without a very large step budget.
 
 ```typescript
-import { logarithmicCooling } from 'simulated-annealing';
+import { logarithmicCooling } from '@joaker/simulated-annealing';
 
 const schedule = logarithmicCooling(100); // c controls the starting plateau
 ```
@@ -280,8 +280,8 @@ Returns a cooling schedule `T = c / ln(1 + step)`. Default `c = 1`. Returns `Inf
 The classic Travelling Salesman Problem solved with 2-opt neighborhood moves. The full implementation is in [`examples/tsp.ts`](./examples/tsp.ts).
 
 ```typescript
-import { anneal, geometricCooling } from 'simulated-annealing';
-import type { NeighborFn } from 'simulated-annealing';
+import { anneal, geometricCooling } from '@joaker/simulated-annealing';
+import type { NeighborFn } from '@joaker/simulated-annealing';
 
 type Route = number[];
 
