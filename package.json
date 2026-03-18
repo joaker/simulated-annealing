@@ -1,6 +1,6 @@
 {
-  "name": "simulated-annealing",
-  "version": "0.1.0",
+  "name": "@joaker/simulated-annealing",
+  "version": "2.0.0",
   "description": "Generic simulated annealing optimizer — sync, iterator, and async modes with pluggable cooling schedules",
   "keywords": [
     "simulated-annealing",
